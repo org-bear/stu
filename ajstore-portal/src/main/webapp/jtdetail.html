@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="js/vue.js"></script>
+	<script type="text/javascript" src="js/axios.min.js"></script>
+	<script type="text/javascript" src="js/util.js"></script>
+	<meta charset="UTF-8">
+	<title>look here</title>
+</head>
+<body>
+	<div id="app"></div>
+	<a href="jtIndex.html">返回</a>
+	<br>
+		<span>{{item.title}}</span>
+		<span>{{item.sellpoint}}</span>
+	</br>
+</body>
+	<script type="text/javascript">
+		var map = getParamMap();
+		var itemId = map.get("itemId");
+		console.log(itemId);
+		var vue=new Vue({
+			el:"#app",
+			mounted:function(){
+				var vue=this;
+				var url="/api/getItemDetail.html?itemId="+itemId
+				axios.get(url).then(function(response){
+					var result=response.data;
+					console.log(result)
+				}).catch(function(e){
+					console.log(e);
+				});
+			},
+			data:{item:null}
+		});
+	</script>
+</html>

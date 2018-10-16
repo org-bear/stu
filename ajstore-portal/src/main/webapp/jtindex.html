@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>look here</title>
+
+</head>
+<body>
+	<div id="app">
+		<div v-for="item in items">
+		<a v-bind:href="item.detailUrl">
+			<img v-bind:src="item.image"/>
+			<br/>
+			<span>{{item.title}}</span>
+			<span>{{item.price}}</span>
+		</a>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="js/axios.min.js"></script>
+<script type="text/javascript" src="js/axios.js"></script>
+<script type="text/javascript">
+var vue=new Vue({
+	//el表示elements
+	//data中的值可以用数据绑定显示在div中
+	el:"#app",
+	mounted:function(){
+		console.log("网页加载完成");
+		console.log(this);
+		var _vue=this;
+		var url="/api/getIndexItem.html"
+		//联网成功后调用then，联网失败后调用catch
+		axios.get(url).then(function(response){
+			console.log(response);
+			var result=response.data
+			_vue.items=result.data;
+			//js中的对象加一个属性
+			for(var i=0;i<_vue.item.length;i++){
+				vue item=_vue.items[i];
+				item.detail="detail.html?ItemId="+item.id;
+			}
+		}).catch(function(e){
+			console.log(e);
+		});
+	},
+	data:{items:[]}
+});
+</script>
+
+</html>
